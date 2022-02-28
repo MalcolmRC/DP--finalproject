@@ -1,3 +1,6 @@
+# Loading quadrant data -------
+## run separately from 1.Data_wrangling, where we load block-level data. This is due to overlapping libraries
+
 options(scipen = 999)
 
 PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Policy Lab/Data/Data" 
