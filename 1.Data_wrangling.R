@@ -2,7 +2,7 @@
 
 ### Block-level data--------
 
-PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Policy Lab/Data/Data"
+PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data" 
 
 ## load libraries####
 library(tidyverse)
@@ -27,7 +27,7 @@ library(cowplot)
 library(expss)
 #install.packages("reshape2")
 library(reshape2)
-library(plyr)
+#library(plyr)                          ## load this library if things don't run
 library(lubridate)
 #install.packages("leaflet")
 library(leaflet)
