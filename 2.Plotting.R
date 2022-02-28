@@ -13,8 +13,8 @@ library(tidyverse)
 library(leaflet)
 library(ggeasy)
 
-PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data" 
-df_shift <- st_read(file.path(PATH, "df_shift.shp")) 
+PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data" 
+df_shift <- st_read(file.path(PATH, "df_shifts_avg.shp")) 
 
 plot_cpp <- function(df, cpp, rcpp){
   # prepare df for plotting
@@ -121,7 +121,7 @@ ggsave(filename = "p_cpp_3quintile.png",
 #  hist_crimes
 #  ggsave(filename = "hist_crimes.png",
 #         plot = hist_crimes,
-#         path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+#         path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 #  
 #  hist_homicides <- ggplot(data = df_shift,
 #                           aes(x = homicide)) +
@@ -135,7 +135,7 @@ ggsave(filename = "p_cpp_3quintile.png",
 #  hist_homicides
 #  ggsave(filename = "hist_homicides.png",
 #         plot = hist_homicides,
-#         path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+#         path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 # 
 
 # table with crime sum stats by shift ------
@@ -148,7 +148,7 @@ table_crimes <- df_shift %>%
             `Total crimes` = sum(sum)) %>%
   as.data.frame()
 write.csv(x = table_crimes,
-          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data/.csv",
+          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images/.csv",
           row.names = F)
 
 ## Maps ----------------------------------------------------------------------------
@@ -165,7 +165,7 @@ map_simple <- ggplot() +
   scale_color_viridis_c(option = "inferno", limits = c(0, 170)) 
 ggsave(filename = "map_simple.png",
        plot = map_simple,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 
 map_crimes_quad_2019_morn <- ggplot() +
@@ -180,7 +180,7 @@ map_crimes_quad_2019_morn <- ggplot() +
 map_crimes_quad_2019_morn
 ggsave(filename = "map_crimes_quad_2019_morn.png",
        plot = map_crimes_quad_2019_morn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 map_crimes_quad_2019_aftn <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='13-21',],
@@ -194,7 +194,7 @@ map_crimes_quad_2019_aftn <- ggplot() +
 map_crimes_quad_2019_aftn
 ggsave(filename = "map_crimes_quad_2019_aftn.png",
        plot = map_crimes_quad_2019_aftn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 map_crimes_quad_2019_nght <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='21-5',],
@@ -208,7 +208,7 @@ map_crimes_quad_2019_nght <- ggplot() +
 map_crimes_quad_2019_nght
 ggsave(filename = "map_crimes_quad_2019_nght.png",
        plot = map_crimes_quad_2019_nght,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 plot_grid(map_crimes_quad_2019_morn, map_crimes_quad_2019_aftn, map_crimes_quad_2019_nght,
           labels = c("Morning Shift", "Afternoon Shift", "Night Shift"),
           ncol = 3)
@@ -224,12 +224,12 @@ map_crimes_officer_quad_2019_morn <- ggplot() +
        fill = "Crimes per Officer",
        color = "Crimes per Officer") +
   theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 162)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 162)) 
+  scale_fill_viridis_c(option = "inferno", limits = c(0, 80)) +
+  scale_color_viridis_c(option = "inferno", limits = c(0, 80)) 
 map_crimes_officer_quad_2019_morn
 ggsave(filename = "map_crimes_officer_quad_2019_morn.png",
        plot = map_crimes_officer_quad_2019_morn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 map_crimes_officer_quad_2019_aftn <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='13-21',],
           aes(fill = cpp)) +
@@ -237,12 +237,12 @@ map_crimes_officer_quad_2019_aftn <- ggplot() +
        fill = "Crimes per Officer",
        color = "Crimes per Officer") +
   theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 162)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 162)) 
+  scale_fill_viridis_c(option = "inferno", limits = c(0, 80)) +
+  scale_color_viridis_c(option = "inferno", limits = c(0, 80)) 
 map_crimes_officer_quad_2019_aftn
 ggsave(filename = "map_crimes_officer_quad_2019_aftn.png",
        plot = map_crimes_officer_quad_2019_aftn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 map_crimes_officer_quad_2019_nght <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='21-5',],
           aes(fill = cpp)) +
@@ -250,12 +250,12 @@ map_crimes_officer_quad_2019_nght <- ggplot() +
        fill = "Crimes per Officer",
        color = "Crimes per Officer") +
   theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 162)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 162)) 
+  scale_fill_viridis_c(option = "inferno", limits = c(0, 80)) +
+  scale_color_viridis_c(option = "inferno", limits = c(0, 80)) 
 map_crimes_officer_quad_2019_nght
 ggsave(filename = "map_crimes_officer_quad_2019_nght.png",
        plot = map_crimes_officer_quad_2019_nght,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 ## Redistributed
 map_redis_crimes_officer_quad_2019_morn <- ggplot() +
@@ -265,12 +265,12 @@ map_redis_crimes_officer_quad_2019_morn <- ggplot() +
        fill = "Crimes per Officer",
        color = "Crimes per Officer") +
   theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 162)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 162)) 
+  scale_fill_viridis_c(option = "inferno", limits = c(0, 80)) +
+  scale_color_viridis_c(option = "inferno", limits = c(0, 80)) 
 map_redis_crimes_officer_quad_2019_morn
 ggsave(filename = "map_redis_crimes_officer_quad_2019_morn.png",
        plot = map_redis_crimes_officer_quad_2019_morn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 map_redis_crimes_officer_quad_2019_aftn <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='13-21',],
           aes(fill = rcpp)) +
@@ -278,12 +278,12 @@ map_redis_crimes_officer_quad_2019_aftn <- ggplot() +
        fill = "Crimes per Officer",
        color = "Crimes per Officer") +
   theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 162)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 162)) 
+  scale_fill_viridis_c(option = "inferno", limits = c(0, 80)) +
+  scale_color_viridis_c(option = "inferno", limits = c(0, 80)) 
 map_redis_crimes_officer_quad_2019_aftn
 ggsave(filename = "map_redis_crimes_officer_quad_2019_aftn.png",
        plot = map_redis_crimes_officer_quad_2019_aftn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 map_redis_crimes_officer_quad_2019_nght <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='21-5',],
           aes(fill = rcpp)) +
@@ -291,12 +291,12 @@ map_redis_crimes_officer_quad_2019_nght <- ggplot() +
        fill = "Crimes per Officer",
        color = "Crimes per Officer") +
   theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 162)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 162)) 
+  scale_fill_viridis_c(option = "inferno", limits = c(0, 80)) +
+  scale_color_viridis_c(option = "inferno", limits = c(0, 80)) 
 map_redis_crimes_officer_quad_2019_nght
 ggsave(filename = "map_redis_crimes_officer_quad_2019_nght.png",
        plot = map_redis_crimes_officer_quad_2019_nght,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 
 ### Officers per quadrant -----------------
@@ -315,7 +315,7 @@ map_officers_quad_2019 <- ggplot() +
 map_officers_quad_2019
 ggsave(filename = "map_officers_quad_2019.png",
        plot = map_officers_quad_2019,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 ### redistribution
 map_redis_officers_quad_2019_morn <- ggplot() +
@@ -331,7 +331,7 @@ map_redis_officers_quad_2019_morn <- ggplot() +
 map_redis_officers_quad_2019_morn
 ggsave(filename = "map_redis_officers_quad_2019_morn.png",
        plot = map_redis_officers_quad_2019_morn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 map_redis_officers_quad_2019_aftn <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='13-21',],
@@ -346,7 +346,7 @@ map_redis_officers_quad_2019_aftn <- ggplot() +
 map_redis_officers_quad_2019_aftn
 ggsave(filename = "map_redis_officers_quad_2019_aftn.png",
        plot = map_redis_officers_quad_2019_aftn,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 map_redis_officers_quad_2019_nght <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='21-5',],
@@ -361,7 +361,7 @@ map_redis_officers_quad_2019_nght <- ggplot() +
 map_redis_officers_quad_2019_nght
 ggsave(filename = "map_redis_officers_quad_2019_nght.png",
        plot = map_redis_officers_quad_2019_nght,
-       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data")
+       path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
 
 ## Analysis - crimes per officer ----------
 crimes_p_officer <- df_shift %>%
@@ -373,7 +373,7 @@ crimes_p_officer <- df_shift %>%
             `Min Crimes` = min(cpp)) %>%
   arrange(`Max Crimes`)
 write.csv(x = crimes_p_officer,
-          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data/crimes_p_officer.csv",
+          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data/crimes_p_officer.csv",
           row.names = F)
 crimes_p_officer_redis <- df_shift %>%
   st_drop_geometry() %>%
@@ -383,10 +383,8 @@ crimes_p_officer_redis <- df_shift %>%
                    `Max Crimes` = max(rcpp),
                    `Min Crimes` = min(rcpp))
 write.csv(x = crimes_p_officer_redis,
-          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data/crimes_p_officer_redis.csv",
+          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data/crimes_p_officer_redis.csv",
           row.names = F)
 
 
-
-#### Shiny -----
 

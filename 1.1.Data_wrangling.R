@@ -200,4 +200,4 @@ df_shifts_avg$rcpp <- as.numeric(unlist(crime_per_police(df_shifts_avg, 'sum', '
 df_shifts_avg <- df_shifts_avg %>%
   dplyr::rename(station = ESTACION)
 #save dfs
-st_write(df_shifts_avg, file.path(PATH, 'df_shifts_avg.shp'), append = F, delete_layer = T)
+st_write(df_shifts_avg, 'C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data/df_shifts_avg.shp', append = F, delete_layer = T)
