@@ -76,7 +76,7 @@ server <- function(input, output) {
   output$police <- renderPlotly({
     ifelse(input$time_pol == "Before",
            plt <- ggplot() +
-             geom_sf(data = df_shift[df_shift$shift == input$shift_pol,],
+             geom_sf(data = df_shift[df_shift$shift == ifelse(input$shift_pol == "morning", "5-13", ifelse(input$shift_pol == "afternoon", "13-21", "21-5")),],
                      #aes(fill = n_of_police)) +
                      aes(fill = n_f_plc)) +
              labs(title = "Officers per Quadrant",
@@ -86,7 +86,7 @@ server <- function(input, output) {
                    plot.subtitle = element_text(hjust = 0.5, size = 10)) +
              scale_fill_viridis_c(option = "mako", limits = c(1, 8)),
            plt <- ggplot() +
-             geom_sf(data = df_shift[df_shift$shift == input$shift_pol,],
+             geom_sf(data = df_shift[df_shift$shift == ifelse(input$shift_pol == "morning", "5-13", ifelse(input$shift_pol == "afternoon", "13-21", "21-5")),],
                      #aes(fill = rn_of_police)) +
                      aes(fill = rn_f_pl)) +
              labs(title = "Officers per Quadrant",
