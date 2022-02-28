@@ -16,24 +16,24 @@ ui <- fluidPage(
     column(width = 12,
            align = "center",
            tags$h1("Fighting Crime in Medellin, COL"),
+           tags$h5("Data from 2018-2021"),
            tags$hr()
     )
   ),
   fluidRow(
     column(width = 12,
            align = "center",
-           tags$h4("Improving police patrol allocation to combat crime"),
-           tags$h6("2018-2021"),
+           tags$h5("This websites is the product of a Harris School of Public Policy project, in conjuection with the National Police of Colombia, to analyze police patrol allocation in the city of Medellin and recommend improvements. The graph on the left will show the amount of police officers per quadrant (equivalent to police beats in the US) while the one on the right will show the number of crimes per officer by quadrant. After analyzing data from 2018-2021, we mapped the status quo of Medellin's crime and police distribution and from that, recommended an optimal allocation strategy based on incidences of crime rather than a uniform distribution. You can interact with the plots by selecting the shifts you would like to visualize or by choosing to view the status quo or the hypothetical results of our suggested distribution."),
     )
   ),
   fluidRow(
     column(width = 6,
            align = "center",
-           tags$h4("Police patrol distribution"),
+           tags$h3("Police patrol distribution"),
            tags$hr()),
     column(width = 6,
            align = "center",
-           tags$h4("Crime distribution"),
+           tags$h3("Crime distribution"),
            tags$hr())
   ),
   fluidRow(
@@ -128,13 +128,3 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 
 
-
-ggplot() +
-  geom_sf(data = df_shift[df_shift$shift=='5-13',],
-          aes(fill = sum)) +
-  labs(title = "Morning shift (5:00 - 13:00)",
-       fill = "Crimes",
-       color = "Crimes") +
-  theme(plot.title = element_text(hjust = 0.5, size = 25)) +
-  scale_fill_viridis_c(option = "inferno", limits = c(0, 170)) +
-  scale_color_viridis_c(option = "inferno", limits = c(0, 170)) 
