@@ -44,8 +44,11 @@ df_crime <- add_labels(df_crime,'crime_labels.csv')
 df_crime <- df_crime %>%
   mutate(crimes_sum = select(., hom2012:hmot2019) %>% rowSums(na.rm = TRUE))
 colnames(df_crime)[1] <- colnames(df_shp)[1]
-df_full <- right_join(df_shp, df_crime[, c(1,34)], by = "COD_DANE_A")
+df_full <- right_join(df_shp, df_crime[, c(1,34)], by = "COD_DANE_A") %>%
+  select(-1)
 
 
 ## Run model -----
 
+reg.simple <- lm(crimes_sum ~ ., data = df_full)
+summary(reg.simple)
