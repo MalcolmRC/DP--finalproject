@@ -7,7 +7,7 @@ PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/20
 
 ## Read data-----
 df_shp <- st_read(file.path(PATH, "manzanas_MEVAL.shp"))[, 1:106] %>%
-  st_drop_geometry()
+  st_drop_geometry() 
 
 ## label the variables to make them readable ------
 add_labels <- function(df, dict_filename, path = PATH){
@@ -31,4 +31,7 @@ add_labels <- function(df, dict_filename, path = PATH){
   
   return(df)
 }
-df_shp <- add_labels(df_shp, "shapefile_labels.csv")
+df_shp <- add_labels(df_shp, "shapefile_labels.csv") %>%
+  select(20, 23:106)
+
+
