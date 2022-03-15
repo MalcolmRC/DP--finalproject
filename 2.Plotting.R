@@ -53,53 +53,6 @@ ggsave(filename = "hist_crimes_p_officer.png",
        path = PATH)
 
 
-## Different re-allocation strategies: Quintiles ----------
-
-# Send one officer from lowest 20% to highest 20% quad-shifts
-quantile(df_shift$cpp, probs = seq(.1, .9, by = .1))
-df_shift$cpp_rank <- case_when(df_shift$cpp < 3.875 ~ 1,
-                               df_shift$cpp >= 3.875 & df_shift$cpp < 8.750 ~ 2,
-                               df_shift$cpp >= 8.750 & df_shift$cpp < 14.775 ~ 3,
-                               df_shift$cpp >= 14.775 & df_shift$cpp < 24.700 ~ 4,
-                               df_shift$cpp > 24.700 ~ 5)
-df_shift$rn_police_quintile <- case_when(df_shift$cpp_rank == 1 ~ df_shift$n_f_plc - 1,
-                                         df_shift$cpp_rank > 1 & df_shift$cpp_rank < 5  ~ df_shift$n_f_plc,
-                                         df_shift$cpp_rank == 5 ~ df_shift$n_f_plc + 1)
-df_shift$rcpp_quintile <- crime_per_police(df_shift, 'sum', 'rn_police_quintile')
-p_cpp_quintile <- plot_cpp(df_shift, 'cpp', 'rcpp_quintile') +
-  labs(subtitle = "One officer from 20% lowest crime quadrants to 20% highest crime quadrants") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10))
-p_cpp_quintile
-ggsave(filename = "p_cpp_quintile.png",
-       plot = p_cpp_quintile,
-       path = PATH)
-
-# Send one officer from lowest 40% to highest 40% quad-shifts
-df_shift$rn_police_2quintile <- case_when(df_shift$cpp_rank < 3 ~ df_shift$n_f_plc - 1,
-                                          df_shift$cpp_rank == 3  ~ df_shift$n_f_plc,
-                                          df_shift$cpp_rank > 3 ~ df_shift$n_f_plc + 1)
-df_shift$rcpp_2quintile <- crime_per_police(df_shift, 'sum', 'rn_police_2quintile')
-p_cpp_2quintile <- plot_cpp(df_shift, 'cpp', 'rcpp_2quintile') +
-  labs(subtitle = "One officer from 40% lowest crime quadrants to 40% highest crime quadrants") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10))
-p_cpp_2quintile
-ggsave(filename = "p_cpp_2quintile.png",
-       plot = p_cpp_2quintile,
-       path = PATH)
-
-# Send one officer from bottom 40% to top 20%
-df_shift$rn_police_3quintile <- case_when(df_shift$cpp_rank < 3 ~ df_shift$n_f_plc - 1,
-                                          df_shift$cpp_rank == 3 | df_shift$cpp_rank == 4  ~ df_shift$n_f_plc,
-                                          df_shift$cpp_rank > 4 ~ df_shift$n_f_plc + 2)
-df_shift$rcpp_3quintile <- crime_per_police(df_shift, 'sum', 'rn_police_3quintile')
-p_cpp_3quintile <- plot_cpp(df_shift, 'cpp', 'rcpp_3quintile') +
-  labs(subtitle = "One officer from 40% lowest crime quadrants to 20% highest crime quadrants") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 10))
-p_cpp_3quintile
-ggsave(filename = "p_cpp_3quintile.png",
-       plot = p_cpp_3quintile,
-       path = PATH)
-
 
 ## Maps ----------------------------------------------------------------------------
 map_simple <- ggplot() +
