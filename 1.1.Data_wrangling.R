@@ -1,5 +1,7 @@
-# Loading quadrant data -------
+# quadrant data -------
 ## run separately from 1.Data_wrangling, where we load block-level data, due to overlapping libraries. Here we have data at the quadrant-shift level. 
+
+## DOWNLOAD RAW DATA AT: https://drive.google.com/drive/u/1/folders/1ZySqbCo1fZRxs9H0lDMnxjlcyE5hNRMy
 
 options(scipen = 999)
 

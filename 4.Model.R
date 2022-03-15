@@ -1,3 +1,8 @@
+#fITTING A MODEL
+
+## DOWNLOAD RAW DATA AT: https://drive.google.com/drive/u/1/folders/1ZySqbCo1fZRxs9H0lDMnxjlcyE5hNRMy
+
+
 library(sf)
 library(tidyverse)
 library(readxl)
