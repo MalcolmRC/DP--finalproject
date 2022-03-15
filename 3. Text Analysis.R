@@ -105,7 +105,7 @@ for (i in seq_along(no_stop)) {
 
 ## Analyze overall sentiment for each article using three sentiment libraries ----
 
-# This nested for loop does sentiment analysis and creates sentiment plots comparing both articles.
+# This nested for loop does sentiment analysis for each article using the three sentiment libraries
 
 sentiment_libraries <- c("nrc", "bing", "afinn")
 articles <- c("Medellin", "National")
