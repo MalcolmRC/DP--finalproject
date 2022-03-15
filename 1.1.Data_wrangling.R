@@ -187,7 +187,7 @@ crime_per_police <- function(df, crime_type, n_of_police = ''){
   return(df$temp)
 }
 
-### run ####
+
 # number of police in the quad shift
 df_shifts_avg$n_of_police <- 2
 df_shifts_avg$rn_of_police <- as.numeric(unlist(redistribute(df_shifts_avg, "sum")))
@@ -199,5 +199,6 @@ df_shifts_avg$rcpp <- as.numeric(unlist(crime_per_police(df_shifts_avg, 'sum', '
 
 df_shifts_avg <- df_shifts_avg %>%
   dplyr::rename(station = ESTACION)
-#save dfs
+
+#save df into folder outside of repo due to its size
 st_write(df_shifts_avg, 'C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Data/df_shifts_avg.shp', append = F, delete_layer = T)
