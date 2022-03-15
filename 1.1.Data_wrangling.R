@@ -1,5 +1,5 @@
 # Loading quadrant data -------
-## run separately from 1.Data_wrangling, where we load block-level data. This is due to overlapping libraries
+## run separately from 1.Data_wrangling, where we load block-level data, due to overlapping libraries. Here we have data at the quadrant-shift level. 
 
 options(scipen = 999)
 
