@@ -101,56 +101,6 @@ ggsave(filename = "p_cpp_3quintile.png",
        path = PATH)
 
 
-
-
-
-### crime per quad shift ####
-#  hist_crimes <- ggplot(data = df_shift,
-#         aes(x = sum,
-#             y = ..density..)) +
-#    geom_histogram(binwidth = 5) +
-#    labs(title = "Distribution of crimes per quadrant-shift (2019)",
-#         x = "Total number of crimes",
-#         y = "Density") +
-#    theme(plot.title = element_text(hjust = 0.5,
-#                                    size = 20),
-#          axis.title = element_text(size = 16)) +
-#    scale_x_continuous(breaks = seq(0, 170, 25)) #+
-#    #annotate("text", label = c("286 quadrants", "    x 3 shifts", "= 858 quadrant-shifts"),
-#     #        x = c(250, 250, 250), y = c(80, 76, 72))
-#  hist_crimes
-#  ggsave(filename = "hist_crimes.png",
-#         plot = hist_crimes,
-#         path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
-#  
-#  hist_homicides <- ggplot(data = df_shift,
-#                           aes(x = homicide)) +
-#    geom_histogram(binwidth = 1, color = "lightgrey") +
-#    labs(title = "Distribution of homicides per quadrant-shift (2019)",
-#         x = "Total number of homicides",
-#         y = "Count") +
-#    theme(plot.title = element_text(hjust = 0.5)) +
-#    annotate("text", label = c("286 quadrants", "    x 3 shifts", "= 858 quadrant-shifts"),
-#             x = c(7.5, 7.5, 7.5), y = c(500, 460, 420))
-#  hist_homicides
-#  ggsave(filename = "hist_homicides.png",
-#         plot = hist_homicides,
-#         path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
-# 
-
-# table with crime sum stats by shift ------
-table_crimes <- df_shift %>%
-  st_drop_geometry() %>%
-  group_by(shift) %>%
-  summarise(`Total homicides` = sum(homicid),
-            `Total car thefts` = sum(vhcl_th),
-            `Total robberies` = sum(theft),
-            `Total crimes` = sum(sum)) %>%
-  as.data.frame()
-write.csv(x = table_crimes,
-          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images/.csv",
-          row.names = F)
-
 ## Maps ----------------------------------------------------------------------------
 map_simple <- ggplot() +
   geom_sf(data = df_shift[df_shift$shift=='5-13',],
@@ -362,29 +312,5 @@ map_redis_officers_quad_2019_nght
 ggsave(filename = "map_redis_officers_quad_2019_nght.png",
        plot = map_redis_officers_quad_2019_nght,
        path = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/DP--finalproject/Images")
-
-## Analysis - crimes per officer ----------
-crimes_p_officer <- df_shift %>%
-  st_drop_geometry() %>%
-  group_by(shift) %>%
-  summarise(`Mean Crimes` = mean(cpp),
-            `Median Crimes` = median(cpp),
-            `Max Crimes` = max(cpp),
-            `Min Crimes` = min(cpp)) %>%
-  arrange(`Max Crimes`)
-write.csv(x = crimes_p_officer,
-          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data/crimes_p_officer.csv",
-          row.names = F)
-crimes_p_officer_redis <- df_shift %>%
-  st_drop_geometry() %>%
-  group_by(shift) %>%
-  dplyr::summarise(`Mean Crimes` = mean(rcpp),
-                   `Median Crimes` = median(rcpp),
-                   `Max Crimes` = max(rcpp),
-                   `Min Crimes` = min(rcpp))
-write.csv(x = crimes_p_officer_redis,
-          file = "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data/crimes_p_officer_redis.csv",
-          row.names = F)
-
 
 
