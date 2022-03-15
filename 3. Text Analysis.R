@@ -86,13 +86,13 @@ for (i in seq_along(no_stop)) {
   
   # Words
   brookings_top_words[[i]] <- no_stop[[i]] %>% 
-    count(text, sort = TRUE) %>% 
+    dplyr::count(text, sort = TRUE) %>% 
     head(15)
   
   # lemmas
   no_stop_parsed[[i]] <- udpipe(as.list(no_stop[[i]]), "english") # must use list of words in udpipe
   brookings_top_lemmas[[i]] <- no_stop_parsed[[i]] %>% 
-    count(lemma, sort = TRUE) %>% 
+    dplyr::count(lemma, sort = TRUE) %>% 
     head(15)
 }
 
@@ -130,10 +130,10 @@ for (i in seq_along(no_stop)) {
     
     # Order top sentiments for each article
     all_sentiment_top[[i]][[j]] <- all_sentiment_tibbles[[i]][[j]] %>% 
-      filter(is.na(sentiment) == F) %>% 
-      count(sentiment) %>% 
-      arrange(desc(n)) %>% 
-      rename(total = n)
+      dplyr::filter(is.na(sentiment) == F) %>% 
+      dplyr::count(sentiment) %>% 
+      dplyr::arrange(desc(n)) %>% 
+      dplyr::rename(total = n)
     
     
     names(all_sentiment_tibbles) <- c("medellin", "national")
