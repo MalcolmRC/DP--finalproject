@@ -8,23 +8,33 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The central question the following project set out to answer was, is there a mismatch between police patrol allocation and crime in the city of Medellin, COL? Given a rich dataset, including geocoded and timestamped crime data, as well as democrgraphic and socioeconomic indicators at the block and quadrant level, we were well-positioned to attempt to answer this question. It is an important issue to consider since police are a scarce resource and one of the only tools available to the state to combat and reduce cruime. Therefore, it is of the utmost importance for this resurce, police patrols, to be distributed efficiently across the city in order to prevent and combat crime.
+The central question the following project set out to answer was, is there a mismatch between police patrol allocation and crime in the city of Medellin, COL? Given a rich dataset, including geocoded and time stamped crime data, as well as demographic and socioeconomic indicators at the block and quadrant level, we were well-positioned to attempt to answer this question. It is an important issue to consider since police are a scarce resource and one of the only tools available to the state to combat and reduce crime. Therefore, it is of the utmost importance for this resource, police patrols, to be distributed efficiently across the city in order to prevent and combat crime.
 
 We will discuss our approach in the following order. First, we will lay out what the raw data we received looked like and outline the steps we took to "clean" it to make it usable for our purposes. Then, we will describe how we used the clean data to visualize crime and police patrol distribution across Medellin. Next, we will provide details regarding our text processing ...... And finally, we will fit a model to try to predict .....
 
 ### 1. Data wrangling
 
-The raw data we received was directly from the National Police of Colombia. Rather than have everything well-organized within one dataset, they sent us several datasets, with overlapping information, but each containing a useful set of variables. One of them contained geocoded crime data at the street block level. Another contained geocoded crime data at the quadrant level (akin to police beats in the US). Another dataset contained the labels for the strangely coded variable names, to facilitate itnerpretation. We proceeded to clean each of these datasets and prepare them for merging, so that we could have all the information in a single place. 
+The raw data we received was directly from the National Police of Colombia. Rather than have everything well-organized within one dataset, they sent us several data sets, with overlapping information, but each containing a useful set of variables. One of them contained geocoded crime data at the street block level. Another contained geocoded crime data at the quadrant level (akin to police beats in the US). Another dataset contained the labels for the strangely coded variable names, to facilitate interpretation. We proceeded to clean each of these data sets and prepare them for merging, so that we could have all the information in a single place. 
 
-The cleaning process involved several steps, which we will briefly glance over. Having chosen the quadrant as the unit of analysis of interest, we created a variable in the block level data that identified which quadrant each street block belonged to given its geocoded location. We also averaged 2018-2021 data to get the yearly mean and facilitate plotting. Furthermore, using crimes' timestamps, we identified during which police shifts crimes were committed, to analyze the mismatch between police distribution and crimes across all three daily police shifts. Finally, having made the data tidy, using the crime variable and knowing that officers were deployed uniformly across quadrants, we calculated a crimes per officer variable that would be central to measuring the success of our re-distribution proposal.
+The cleaning process involved several steps, which we will briefly glance over. Having chosen the quadrant as the unit of analysis of interest, we created a variable in the block level data that identified which quadrant each street block belonged to given its geocoded location. We also averaged 2018-2021 data to get the yearly mean and facilitate plotting. Furthermore, using crimes' time stamps, we identified during which police shifts crimes were committed, to analyze the mismatch between police distribution and crimes across all three daily police shifts. Finally, having made the data tidy, using the crime variable and knowing that officers were deployed uniformly across quadrants, we calculated a crimes per officer variable that would be central to measuring the success of our re-distribution proposal.
 
-To wrap up the data wrangling, we put forth a police patrol re-distribution recommendation that would assign officers to quadrants proportionally to the crime levels, rather than uniformly so. The prupose of this was to visualize in the next step whether crime would be better combatted if there was a better strategy for police patrol distribution than the status quo.
+To wrap up the data wrangling, we put forth a police patrol re-distribution recommendation that would assign officers to quadrants proportionally to the crime levels, rather than uniformly so. The purpose of this was to visualize in the next step whether crime would be better combated if there was a better strategy for police patrol distribution than the status quo.
 
 ### 2. Plotting
 
 With clean data, the plotting was merely about reproducing reality in maps of Medellin. We started by showing how crime and police patrols were currently distributed across the city. We plotted this for each of the three police shifts (morning, afternoon and night). We then went on to plot how police officers would be re-distributed according to our proposal and subsequently, how crimes per officers would change across quadrants if crime remained constant and officers were re-allocated as we proposed. The maps show that our recommendation has potential to improve the status quo in terms of homogenizing officer workload and reducing average crimes per officer across the board.
 
-To make the visualization of these plots more interactive, we created a Shiny interface. This would allow anyone interested in viewing the results of our work to do so in an accessible and approachable manner. 
+To make the visualization of these plots more interactive, we created a Shiny interface. This would allow anyone interested in viewing the results of our work to do so in an accessible and approachable manner. The Shiny interface allows the viewer to choose what he wants to visualize, and the options are between two different types of maps: one that shows the police patrol distribution and the other that shows crime distribution. Shiny allows the viewer to pick which police shift to visualize and whether to see the status quo or the hypothetical state of affairs after re-distribution.
+
+### 3. Text Analysis
+
+
+### 4. Fitting a Model
+
+
+### Conclusion
+
+
 
 
 
