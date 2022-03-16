@@ -11,6 +11,7 @@ library(caret)
 
 
 ### Read and Prepare data For model ----
+
 PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data"
 #PATH <- "C:/Users/nakei/Desktop/UChicago MPP/5th quarter/Data and Programming II/Final Project" 
 #setwd("C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data")
@@ -63,15 +64,32 @@ df_full <- right_join(df_shp, df_crime[, c(1,34)], by = "COD_DANE_A") %>%
 df_char <- df_full %>% 
   select(where(is.character))
 
+str(df_char)
+
 df_full <- df_full %>% 
   select(-TP_LC_CM) # drop description of locality as it takes on a single value "comuna" 
+
+
+# Log crimes_sum to obtain a more normal distribution
+df_model <- df_full %>% 
+  mutate(log_crimes = log(crimes_sum + 1)) %>% 
+  select(-crimes_sum) %>% 
+  select(log_crimes, everything())
+
+
+# Drop columns that only have zeros and variable with communa name
+df_model <- df_model %>% 
+  select_if(~ is.character(.) | max(.) > 0) %>% # code adapted from https://stackoverflow.com/questions/53078088/select-or-subset-variables-whose-column-sums-are-not-zero
+  select(-NMB_LC_CM) %>% 
+  mutate(CD_LC_CM = as.factor(CD_LC_CM))
+
 
 
 ### Model ----
 
 # Run full regression ----
-reg_full <- glm(crimes_sum ~ ., 
-                 data = df_full, 
+reg_full <- glm(log_crimes ~ ., 
+                 data = df_model, 
                  family = "gaussian")
 summary(reg_full)
 
@@ -79,7 +97,7 @@ summary(reg_full)
 
 
 ## Fit regression model using the Lasso ----
-df_no_na <- na.omit(df_full) # model.matrix drops NA observations, so we drop NAs in data frames for model fitting
+df_no_na <- na.omit(df_model) # model.matrix drops NA observations, so we drop NAs in data frames for model fitting
 
 # Turn dataframe into matrix for glmnet fit
 
@@ -89,7 +107,7 @@ matrix_data <- matrix_data[,-1] # drop intercept
 # Fit model using the lasso
 cv_lasso <- cv.glmnet(
   x       = matrix_data, 
-  y       = df_no_na$crimes_sum,
+  y       = df_no_na$log_crimes,
   family  = "gaussian", 
   alpha   = 1,   
   nfolds  = 10)
@@ -106,15 +124,11 @@ betas_1se <- coefficients(cv_lasso, s = "lambda.1se")
 model_1se <- which(betas_1se[-1] != 0)
 (vars_1se <- colnames(matrix_data[, model_1se]))
 
-# Prints the variables selected for model with largest lambda within 1 se of minimum error 
 
 # Variables selected by lasso for minimum error ----
 betas_min <- coefficients(cv_lasso, s = "lambda.min")
 model_min <- which(betas_min[-1] != 0)
 (vars_min <- colnames(matrix_data[, model_min]))
-
-# Prints the variables selected for minimum error model 
-
 
 
 ## Predict crimes per quadrant ----
@@ -136,7 +150,7 @@ df_test <- df_no_na[-training,]
 # Train a model to predict crime per quadrant ----
 lasso_train <- cv.glmnet(
   x       = matrix_train, 
-  y       = df_train$crimes_sum,
+  y       = df_train$log_crimes,
   family  = "gaussian", 
   alpha   = 1,   
   nfolds  = 10)
@@ -149,11 +163,13 @@ pred_test_min <- predict(train_fit,
                          newx = matrix_test,
                          s = lasso_train$lambda.min)
 
-# Compare prediction to real value ----
-df_min <- tibble(prediction = pred_test_min[,1], actual = df_test$crimes_sum)
 
-# RMSE
-sqrt((mean(df_min$actual - df_min$prediction)^2))
+# Compare prediction to real value ----
+
+df_min <- tibble(prediction = pred_test_min[,1], actual = df_test$log_crimes)
+
+#RMSE
+sqrt(mean(df_min$actual - df_min$prediction)^2)
 
 
 
@@ -163,9 +179,9 @@ pred_test_1se <- predict(train_fit,
                      s = lasso_train$lambda.1se)
 
 # Compare prediction to real value ----
-df_1se <- data_frame(prediction = pred_test_1se[,1], actual = df_test$crimes_sum)
+df_1se <- tibble(prediction = pred_test_1se[,1], actual = df_test$log_crimes)
 
-# MSE
-sqrt((mean(df_1se$actual - df_1se$prediction)^2))
+#RMSE
+sqrt(mean(df_1se$actual - df_1se$prediction)^2)
 
 
