@@ -1,3 +1,8 @@
+#fITTING A MODEL
+
+## DOWNLOAD RAW DATA AT: https://drive.google.com/drive/u/1/folders/1ZySqbCo1fZRxs9H0lDMnxjlcyE5hNRMy
+
+
 library(sf)
 library(tidyverse)
 library(readxl)
@@ -6,7 +11,8 @@ library(caret)
 
 
 ### Read and Prepare data For model ----
-PATH <- "C:/Users/nakei/Desktop/UChicago MPP/5th quarter/Data and Programming II/Final Project" 
+PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data"
+#PATH <- "C:/Users/nakei/Desktop/UChicago MPP/5th quarter/Data and Programming II/Final Project" 
 setwd("C:/Users/nakei/Desktop/UChicago MPP/5th quarter/Data and Programming II/Final Project")
 
 ## Read data ----

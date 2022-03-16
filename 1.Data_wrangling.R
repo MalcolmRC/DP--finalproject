@@ -1,5 +1,7 @@
 # 1. Data Wrangling -------
 
+## DOWNLOAD RAW DATA AT: https://drive.google.com/drive/u/1/folders/1ZySqbCo1fZRxs9H0lDMnxjlcyE5hNRMy
+
 ### Block-level data--------
 
 PATH <- "C:/Users/52322/OneDrive - The University of Chicago/Documents/Harris/2022 Winter/Data and Programming II/Final Project/Data" 
@@ -42,7 +44,6 @@ df_crime_full <- read_xlsx(file.path(PATH, "Data_Manzana_MDE.xlsx"))
 df_crime <- read_xlsx(file.path(PATH, "Data_Manzana_MDE.xlsx"))[, c(4, 37:68)]
 
 ## shape file ####
-#df_shp <- st_read(file.path(PATH, "MGN_ANM_MANZANA.shp"))
 df_shp <- st_read(file.path(PATH, "manzanas_MEVAL.shp"))[, 1:106]
 
 # Clean Data ####
