@@ -1,7 +1,6 @@
 ---
 title: "Write-up"
-author: "Ernesto Truqui"
-date: "3/16/2022"
+author: "Malcolm Robinson and Ernesto Truqui"
 output: pdf_document
 ---
 
@@ -23,7 +22,9 @@ To wrap up the data wrangling, we put forth a police patrol re-distribution reco
 
 ### 2. Plotting
 
-With clean data, the plotting was merely about reproducing reality in maps of Medellin. We started by showing how crime was currently distributed
+With clean data, the plotting was merely about reproducing reality in maps of Medellin. We started by showing how crime and police patrols were currently distributed across the city. We plotted this for each of the three police shifts (morning, afternoon and night). We then went on to plot how police officers would be re-distributed according to our proposal and subsequently, how crimes per officers would change across quadrants if crime remained constant and officers were re-allocated as we proposed. The maps show that our recommendation has potential to improve the status quo in terms of homogenizing officer workload and reducing average crimes per officer across the board.
+
+To make the visualization of these plots more interactive, we created a Shiny interface. This would allow anyone interested in viewing the results of our work to do so in an accessible and approachable manner. 
 
 
 
