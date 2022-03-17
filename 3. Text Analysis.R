@@ -192,19 +192,6 @@ plot_grid(plotlist = negation_plot, nrow = 2, ncol = 1)
 
 # Sentiment is significantly more negative in the Medellin article than in the Brookings article
 
-
-# Sentiment CSV
-#sentiment_csv_medellin <- unhr_words_stop %>% 
-  #left_join(get_sentiments("nrc"), by = c("text" = "word")) %>% 
-  #left_join(get_sentiments("bing"), by = c("text" = "word")) %>% 
-  #left_join(get_sentiments("afinn"), by = c("text" = "word")) 
-
-#colnames(sentiment_csv) <- c("word", "nrc", "bing", "afinn")
-
-#write_csv(sentiment_csv, "question2_sentiments.csv")
-
-
-
 ## Cooccurrence Analysis ----
 
 article_parsed <- vector("list", length(brookings_list))
@@ -263,22 +250,37 @@ get_word_relations <- function(word) {
        )
 }
 
-# What was said about police?
-police_word_relations <- get_word_relations("police")
-police_word_relations$sentences_medellin
-police_word_relations$correlations_national
+words_of_interest <- c("police", "security", "violence")
+word_relations <- vector("list", length(words_of_interest))
+
+for (i in seq_along(words_of_interest)) {
+  
+  word_relations[[i]] <- get_word_relations(words_of_interest[[i]])
+  
+  names(word_relations) <- words_of_interest 
+}
+
+
+# What was said about police? *some sentences are repeated because they include the word twice.
+
+word_relations$police$sentences_medellin
+word_relations$police$sentences_national
+word_relations$police$correlations_medellin
+word_relations$police$correlations_national
 
 
 # what was said about security? 
-security_word_relations <- get_word_relations("security")
-security_word_relations$sentences_medellin
-security_word_relations$correlations_national
+word_relations$security$sentences_medellin
+word_relations$security$sentences_national
+word_relations$security$correlations_medellin
+word_relations$security$correlations_national
 
 
 # What was said about violence?
-security_word_relations <- get_word_relations("violence")
-security_word_relations$sentences_medellin
-security_word_relations$correlations_national
+word_relations$violence$sentences_medellin
+word_relations$violence$sentences_national
+word_relations$violence$correlations_medellin
+word_relations$violence$correlations_national
 
 
 

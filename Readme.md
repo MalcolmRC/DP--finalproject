@@ -1,13 +1,3 @@
----
-title: "Write-up"
-author: "Malcolm Robinson and Ernesto Truqui"
-output: pdf_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 The central question the following project set out to answer was: is there a mismatch between police patrol allocation and crime in the city of Medellin, COL? Given a rich dataset, including geocoded and time stamped crime data, as well as demographic and socioeconomic indicators at the block and quadrant level, we were well-positioned to attempt to answer this question. It is an important issue to consider since police are a scarce resource and one of the only tools available to the state to combat and reduce crime. Therefore, it is of the utmost importance for this resource, police patrols, to be distributed efficiently across the city in order to prevent and combat crime.
 
 We will discuss our approach in the following order. First, we will lay out what the raw data we received looked like and outline the steps we took to "clean" it to make it usable for our purposes. Then, we will describe how we used the clean data to visualize crime and police patrol distribution across Medellin. Next, we will detail our use of text processing to analyze two Brooking articles describing security issues both in Medellin and in Colombia as a whole. Finally, we will fit a regression model with lasso feature selection to predict violent crime per quadrant in Medellin using area-specific demographic and socioeconomic data.
@@ -43,8 +33,3 @@ With this in mind, we decided to use the lasso regularization to select predicti
 ### Conclusion
 
 Policing is a critical element of any public security platform. We find that the inefficient distribution of police patrols in Medellini may contribute to suboptimal safety outcomes across the city, particularly in the neighborhoods that need it most. In this exercise, we took messy raw data and tidied it to visualize patterns and relationships, predict crimes per quadrant, and propose alternative allocations of police patrols to improve public safety outcomes. Text analysis allowed us to gauge the sentiment of a leading scholar vis-a-vis security and policing in Medellin and Colombia, providing a theoretical backdrop to bolster our findings. This is an admittedly simple study, but it provides some motivation for a more profound analysis, and presents evidence that data and programming are critical in tackling critical policy challenges.      
-
-
-
-
-

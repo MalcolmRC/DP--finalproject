@@ -58,8 +58,8 @@ colnames(df_crime)[1] <- colnames(df_shp)[1]
 df_full <- right_join(df_shp, df_crime[, c(1,34)], by = "COD_DANE_A") %>%
   select(-1)
 
-# explore character variables
 
+# explore character variables
 df_char <- df_full %>% 
   select(where(is.character))
 
@@ -70,10 +70,16 @@ df_full <- df_full %>%
 
 
 # Log crimes_sum to obtain a more normal distribution
+ggplot(df_full) +
+  geom_freqpoly(aes(x = crimes_sum))
+
 df_model <- df_full %>% 
-  mutate(log_crimes = log(crimes_sum + 1)) %>% 
+  mutate(log_crimes = log(crimes_sum)) %>% 
   select(-crimes_sum) %>% 
   select(log_crimes, everything())
+
+ggplot(df_model) +
+  geom_freqpoly(aes(x = log_crimes))
 
 
 # Drop columns that only have zeros and variable with communa name
@@ -182,5 +188,4 @@ df_1se <- tibble(prediction = pred_test_1se[,1], actual = df_test$log_crimes)
 
 #RMSE
 sqrt(mean(df_1se$actual - df_1se$prediction)^2)
-
 
